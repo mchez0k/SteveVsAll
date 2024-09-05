@@ -2,20 +2,21 @@ using UnityEngine;
 
 public class MeleeWeapon : Weapon
 {
-    public float attackRange = 1.5f;
-    public int damage = 10;
+    [SerializeField] private float attackRange = 1.5f;
+    [SerializeField] private float damage = 1f;
+    [SerializeField] private float kickForce = 1f;
 
     public override void Attack()
     {
-        Debug.Log("Perform melee attack");
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, attackRange))
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRange, LayerMask.GetMask("Enemy"));
+        Debug.Log(hitColliders.Length);
+        foreach (var hitCollider in hitColliders)
         {
-            //var target = hit.collider.GetComponent<Damageable>();
-            //if (target != null)
-            //{
-            //    target.TakeDamage(damage);
-            //}
+            var enemyHealth = hitCollider.GetComponent<Health>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(transform.position, damage, kickForce);
+            }
         }
     }
 }

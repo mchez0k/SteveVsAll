@@ -6,22 +6,20 @@ public class ZombieBrain : MonoBehaviour
     [SerializeField] private float visionAngle = 90f;
     [SerializeField] private float viewDistance = 16f;
 
-    [SerializeField] private float rotationSpeed = 3f;
-
     [SerializeField] private float damage = 1f;
     [SerializeField] private float kickForce = 10f;
 
     [SerializeField] private Transform eyes;
 
+    private ZombieMovement movement;
+
     private float cooldown = 0f;
 
-
-    private NavMeshAgent navMeshAgent;
     private Transform player;
 
     private void Awake()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
+        movement = GetComponent<ZombieMovement>();
 
         player = FindObjectOfType<Movement>().transform;
 
@@ -35,27 +33,32 @@ public class ZombieBrain : MonoBehaviour
     private void FixedUpdate()
     {
         cooldown -= Time.deltaTime;
+        Move();
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (cooldown > 0f || !other.gameObject.TryGetComponent(out Health playerHealth)) return;
+        ApplyDamage(playerHealth);
+    }
+
+    private void OnCollisionStay(Collision other)
+    {
+        if (cooldown > 0f || !other.gameObject.TryGetComponent(out Health playerHealth)) return;
+        ApplyDamage(playerHealth);
+    }
+
+    private void Move()
+    {
         if (Vision())
         {
-            navMeshAgent.SetDestination(player.position);
-            transform.forward = Vector3.Lerp(transform.forward, player.position - transform.position, rotationSpeed);
+            movement.MoveTowards(player.transform);
+
         }
         else
         {
-            navMeshAgent.ResetPath();
+            movement.Stop();
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (cooldown > 0f || !other.TryGetComponent(out Health playerHealth)) return;
-        ApplyDamage(playerHealth);
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (cooldown > 0f || !other.TryGetComponent(out Health playerHealth)) return;
-        ApplyDamage(playerHealth);
     }
 
     private bool Vision()
@@ -76,7 +79,7 @@ public class ZombieBrain : MonoBehaviour
 
     void ApplyDamage(Health playerHealth)
     {
-        playerHealth.Attack(transform, damage, kickForce);
+        playerHealth.TakeDamage(transform.position, damage, kickForce);
         cooldown = 1f;
     }
 }

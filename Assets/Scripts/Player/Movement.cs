@@ -77,16 +77,15 @@ public class Movement : MonoBehaviour, IPhysicsObserver
     rb.velocity = Vector3.Lerp(currentVelocity, targetVelocity, Time.fixedDeltaTime * 10f);
 
     // Ограничиваем максимальную горизонтальную скорость.
-    rb.velocity = Vector3.ClampMagnitude(rb.velocity, speed + 5f);
+    rb.velocity = Vector3.ClampMagnitude(rb.velocity, speed);
 }
 
-    public void OnHealthChanged(Transform attacker, float kickForce)
+    public void OnHealthChanged(Vector3 attackerPosition, float kickForce)
     {
-        Debug.Log("OnHealthChanged - Movement");
         var kickDirection = new Vector3(
-            (transform.position.x - attacker.position.x),
+            (transform.position.x - attackerPosition.x),
             1f,
-            (transform.position.z - attacker.position.z)
+            (transform.position.z - attackerPosition.z)
         ).normalized * kickForce;
         rb.AddForce(kickDirection, ForceMode.Impulse);
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [SerializeField] private float health = 20f;
+    public bool isPlayer;
 
     private List<IPhysicsObserver> physicsObservers = new List<IPhysicsObserver>();
     private List<IUIObserver> uiObservers = new List<IUIObserver>();
@@ -20,11 +21,18 @@ public class Health : MonoBehaviour
 
     private void Awake()
     {
-        RegisterPhysicsObserver(GetComponent<Movement>());
+        if (isPlayer)
+        {
+            RegisterPhysicsObserver(GetComponent<Movement>());
+        } else
+        {
+            RegisterPhysicsObserver(GetComponent<ZombieMovement>());
+        }
+
         //RegisterUIObserver(this);
     }
 
-    public void Attack(Transform entity, float damage, float kickForce)
+    public void TakeDamage(Vector3 entityPosition, float damage, float kickForce)
     {
         int maxCount = Mathf.Max(physicsObservers.Count, uiObservers.Count);
         health -= damage;
@@ -32,8 +40,7 @@ public class Health : MonoBehaviour
         {
             if (i < physicsObservers.Count)
             {
-                Debug.Log("PhysObs");
-                physicsObservers[i].OnHealthChanged(entity, kickForce);
+                physicsObservers[i].OnHealthChanged(entityPosition, kickForce);
             }
 
             if (i < uiObservers.Count)
