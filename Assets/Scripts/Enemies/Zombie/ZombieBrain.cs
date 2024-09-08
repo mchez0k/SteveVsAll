@@ -1,15 +1,18 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 public class ZombieBrain : MonoBehaviour
 {
     [SerializeField] private float visionAngle = 90f;
-    [SerializeField] private float viewDistance = 16f;
+    [SerializeField] private float viewDistance = 20f;
+    [SerializeField] private float hearDistance = 40f;
 
     [SerializeField] private float damage = 1f;
     [SerializeField] private float kickForce = 10f;
 
     [SerializeField] private Transform eyes;
+
+    public int CoinsReward;
+    public int ExpirienceReward;
 
     private ZombieMovement movement;
 
@@ -50,10 +53,9 @@ public class ZombieBrain : MonoBehaviour
 
     private void Move()
     {
-        if (Vision())
+        if (Vision() || Hear())
         {
             movement.MoveTowards(player.transform);
-
         }
         else
         {
@@ -75,6 +77,11 @@ public class ZombieBrain : MonoBehaviour
             }
         }
         return false;
+    }
+
+    private bool Hear()
+    {
+        return Vector3.Distance(player.position, transform.position) < hearDistance;
     }
 
     void ApplyDamage(Health playerHealth)

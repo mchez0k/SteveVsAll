@@ -4,10 +4,16 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [SerializeField] private float health = 20f;
-    public bool isPlayer;
+    private float maxHealth;
+
+    [Space(2)]
+    [Header("Награды")]
+    public int Coins;
+    public int Experience;
 
     private List<IPhysicsObserver> physicsObservers = new List<IPhysicsObserver>();
     private List<IUIObserver> uiObservers = new List<IUIObserver>();
+    private IDeathObserver deathObserver;
 
     public void RegisterPhysicsObserver(IPhysicsObserver observer)
     {
@@ -19,17 +25,43 @@ public class Health : MonoBehaviour
         uiObservers.Add(observer);
     }
 
+    public void RegisterDeathObserver(IDeathObserver observer)
+    {
+        if (observer != null)
+        {
+            deathObserver = observer;
+        }
+        else
+        {
+            Debug.LogWarning("GameOverObserver не найден.");
+        }
+    }
+
     private void Awake()
     {
-        if (isPlayer)
+        maxHealth = health;
+
+        if (TryGetComponent(out ZombieMovement zombieMovement))
         {
-            RegisterPhysicsObserver(GetComponent<Movement>());
-        } else
+            RegisterPhysicsObserver(zombieMovement);
+        }
+        if (TryGetComponent(out Movement movement))
         {
-            RegisterPhysicsObserver(GetComponent<ZombieMovement>());
+            RegisterPhysicsObserver(movement);
+        }
+        if (TryGetComponent(out PlayerUI playerUI))
+        {
+            RegisterUIObserver(playerUI);
+        }
+        if (TryGetComponent(out MobDeath mob))
+        {
+            RegisterDeathObserver(mob);
+        } 
+        else
+        {
+            RegisterDeathObserver(FindAnyObjectByType<PlayerDeath>());
         }
 
-        //RegisterUIObserver(this);
     }
 
     public void TakeDamage(Vector3 entityPosition, float damage, float kickForce)
@@ -45,8 +77,21 @@ public class Health : MonoBehaviour
 
             if (i < uiObservers.Count)
             {
-                uiObservers[i].OnHealthChanged(health);
+                uiObservers[i].OnHealthChanged(health + damage, damage);
             }
+        }
+        if (health <= 0)
+        {
+            deathObserver.OnDeath(Coins, Experience);
+        }
+    }
+
+    public void Heal(float heal)
+    {
+        health = Mathf.Min(maxHealth, health + heal);
+        for (int i = 0; i < uiObservers.Count; i++)
+        {
+            uiObservers[i].OnHealthChanged(health - heal, - heal);
         }
     }
 }

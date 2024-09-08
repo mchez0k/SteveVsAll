@@ -6,7 +6,7 @@ public class ZombieMovement : MonoBehaviour, IPhysicsObserver
 {
     [SerializeField] private float rotationSpeed = 3f;
 
-    [SerializeField] private float groundDistance = 0.02f;
+    //[SerializeField] private float groundDistance = 0.02f;
     [SerializeField] private float delay = 0.5f;
 
     private NavMeshAgent navMeshAgent;

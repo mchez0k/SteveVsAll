@@ -1,4 +1,4 @@
 public interface IUIObserver
 {
-    void OnHealthChanged(float health) { }
+    void OnHealthChanged(float oldHealth, float damage) { }
 }

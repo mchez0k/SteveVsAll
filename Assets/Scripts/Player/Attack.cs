@@ -14,6 +14,11 @@ public class Attack : MonoBehaviour
         playerInput.Gameplay.Attack.performed += OnAttack;
     }
 
+    private void FixedUpdate()
+    {
+        currentWeapon.DecreaseCooldown();
+    }
+
     private void OnAttack(InputAction.CallbackContext context)
     {
         if (currentWeapon != null)

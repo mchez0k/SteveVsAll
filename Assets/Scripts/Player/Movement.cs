@@ -14,7 +14,7 @@ public class Movement : MonoBehaviour, IPhysicsObserver
     private float lastDashTime = -10f;
 
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private DualVirtualJoystick virtualJoystick;
+    //[SerializeField] private DualVirtualJoystick virtualJoystick;
 
     private PlayerInput playerInput;
     private Collider[] ground = new Collider[1];
@@ -60,10 +60,10 @@ public class Movement : MonoBehaviour, IPhysicsObserver
 
     movementInput += playerInput.Gameplay.MoveKeyboard.ReadValue<Vector2>();
 
-    if (virtualJoystick != null)
-    {
-        movementInput += virtualJoystick.leftInputVector;
-    }
+    //if (virtualJoystick != null)
+    //{
+    //    movementInput += virtualJoystick.leftInputVector;
+    //}
 
     if (movementInput.sqrMagnitude < 0.1f) return;
 

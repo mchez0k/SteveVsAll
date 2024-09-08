@@ -2,22 +2,35 @@ using UnityEngine;
 
 public class MeleeWeapon : Weapon
 {
-    [SerializeField] private float attackRange = 1.5f;
-    [SerializeField] private float damage = 1f;
-    [SerializeField] private float kickForce = 1f;
+    [SerializeField] private MeleeWeaponSO data;
+
+    private float currentCoolDown;
+
+    private void Awake()
+    {
+        var render = GetComponent<SpriteRenderer>();
+        render.sprite = data.sprite;
+    }
 
     public override void Attack()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRange, LayerMask.GetMask("Enemy"));
-        Debug.Log(hitColliders.Length);
-        foreach (var hitCollider in hitColliders)
+        if (currentCoolDown > 0) return;
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, data.attackRange, LayerMask.GetMask("Enemy"));
+        if (hitColliders.Length < 1) return;
+        for (int i = 0; i < Mathf.Min(hitColliders.Length, data.maxEnemies); ++i)
         {
-            var enemyHealth = hitCollider.GetComponent<Health>();
+            var enemyHealth = hitColliders[i].GetComponent<Health>();
             if (enemyHealth != null)
             {
-                enemyHealth.TakeDamage(transform.position, damage, kickForce);
+                enemyHealth.TakeDamage(transform.position, data.damage, data.kickForce);
             }
         }
+        currentCoolDown = data.coolDown;
+    }
+
+    public override void DecreaseCooldown()
+    {
+        currentCoolDown -= Time.deltaTime;
     }
 }
 
