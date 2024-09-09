@@ -1,4 +1,6 @@
 using System.Collections;
+using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using YG;
@@ -8,6 +10,8 @@ public class PlayerDeath : MonoBehaviour, IDeathObserver
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject reviveButton;
     [SerializeField] private GameObject doubleButton;
+    [SerializeField] private TextMeshProUGUI kills;
+
 
     private GameObject player;
 
@@ -33,6 +37,7 @@ public class PlayerDeath : MonoBehaviour, IDeathObserver
 
     void Death()
     {
+        kills.text = PlayerProgress.GetKills().ToString();
         player.SetActive(false);
         mainMenu.SetActive(true);
     }

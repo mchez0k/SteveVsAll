@@ -50,6 +50,10 @@ public class Health : MonoBehaviour
         {
             RegisterPhysicsObserver(zombieMovement);
         }
+        if (TryGetComponent(out SkeletonMovement skeletonMovement))
+        {
+            RegisterPhysicsObserver(skeletonMovement);
+        }
         if (TryGetComponent(out Movement movement))
         {
             RegisterPhysicsObserver(movement);

@@ -1,10 +1,10 @@
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "RangedWeapon", menuName = "ScriptableObjects/RangedWeapon", order = 3)]
+
 public class RangedWeaponSO : WeaponSO, IRangedWeapon
 {
-    public float range = 10f;
-    public int ammoCapacity = 30;
-    public float reloadTime = 2f;
+    public float startSpeed = 10f;
 
-    public float Range => range;
-    public int AmmoCapacity => ammoCapacity;
-    public float ReloadTime => reloadTime;
+    public float StartSpeed => startSpeed;
 }

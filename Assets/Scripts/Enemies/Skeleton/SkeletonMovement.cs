@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ZombieMovement : MonoBehaviour, IPhysicsObserver
+public class SkeletonMovement : MonoBehaviour, IPhysicsObserver
 {
     [SerializeField] private float rotationSpeed = 3f;
 

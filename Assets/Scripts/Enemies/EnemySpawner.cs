@@ -30,7 +30,7 @@ public class EnemySpawner : MonoBehaviour
         Vector3 randomOffset = new Vector3(randomPlane.x, 0f, randomPlane.z);
         if (RandomPoint(randomOffset, 2f, out Vector3 spawnPoint))
         {
-            Instantiate(mobsPrefabs[Random.Range(0, mobsPrefabs.Length - 1)], spawnPoint, Quaternion.identity);
+            Instantiate(mobsPrefabs[Random.Range(0, mobsPrefabs.Length)], spawnPoint, Quaternion.identity);
             mobsCount++;
             currentTime = spawnerTime;
         }
@@ -42,7 +42,7 @@ public class EnemySpawner : MonoBehaviour
         {
             Vector3 randomPoint = center + Random.insideUnitSphere * range;
             NavMeshHit hit;
-            if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas) && Vector3.Distance(transform.position, hit.position) < minDistance)
             {
                 result = hit.position;
                 return true;
