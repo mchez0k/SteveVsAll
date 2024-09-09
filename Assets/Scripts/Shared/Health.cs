@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ public class Health : MonoBehaviour
     private List<IPhysicsObserver> physicsObservers = new List<IPhysicsObserver>();
     private List<IUIObserver> uiObservers = new List<IUIObserver>();
     private IDeathObserver deathObserver;
+
+    private SoundManager soundManager;
 
     public void RegisterPhysicsObserver(IPhysicsObserver observer)
     {
@@ -41,6 +44,8 @@ public class Health : MonoBehaviour
     {
         maxHealth = health;
 
+        soundManager = GetComponent<SoundManager>();
+
         if (TryGetComponent(out ZombieMovement zombieMovement))
         {
             RegisterPhysicsObserver(zombieMovement);
@@ -61,13 +66,21 @@ public class Health : MonoBehaviour
         {
             RegisterDeathObserver(FindAnyObjectByType<PlayerDeath>());
         }
+    }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("KillZone"))
+        {
+            deathObserver.OnDeath(Coins, Experience);
+        }
     }
 
     public void TakeDamage(Vector3 entityPosition, float damage, float kickForce)
     {
         int maxCount = Mathf.Max(physicsObservers.Count, uiObservers.Count);
         health -= damage;
+        soundManager.OnHurt();
         for (int i = 0; i < maxCount; i++)
         {
             if (i < physicsObservers.Count)
@@ -82,8 +95,15 @@ public class Health : MonoBehaviour
         }
         if (health <= 0)
         {
-            deathObserver.OnDeath(Coins, Experience);
+            soundManager.OnDeath();
+            StartCoroutine(KillAfterSound(Coins, Experience));
         }
+    }
+
+    private IEnumerator KillAfterSound(int Coins, float Experience)
+    {
+        yield return new WaitForSeconds(0.5f);
+        deathObserver.OnDeath(Coins, Experience);
     }
 
     public void Heal(float heal)

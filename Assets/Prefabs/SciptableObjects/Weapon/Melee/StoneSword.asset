@@ -17,4 +17,4 @@ MonoBehaviour:
   maxEnemies: 1
   damage: 4
   kickForce: 5
-  coolDown: 1.6
+  coolDown: 1

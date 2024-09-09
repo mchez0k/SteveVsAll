@@ -19,6 +19,11 @@ public static class PlayerProgress
         currentCoins *= 2;
     }
 
+    public static int GetCoins()
+    {
+        return currentCoins;
+    }
+
     public static void SaveProgress()
     {
         YandexGame.savesData.Coins += currentCoins;

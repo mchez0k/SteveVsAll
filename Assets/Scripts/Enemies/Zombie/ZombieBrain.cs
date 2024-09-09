@@ -41,13 +41,13 @@ public class ZombieBrain : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (cooldown > 0f || !other.gameObject.TryGetComponent(out Health playerHealth)) return;
+        if (cooldown > 0f || other.gameObject.layer == LayerMask.NameToLayer("Enemy") || !other.gameObject.TryGetComponent(out Health playerHealth)) return;
         ApplyDamage(playerHealth);
     }
 
     private void OnCollisionStay(Collision other)
     {
-        if (cooldown > 0f || !other.gameObject.TryGetComponent(out Health playerHealth)) return;
+        if (cooldown > 0f || other.gameObject.layer == LayerMask.NameToLayer("Enemy") || !other.gameObject.TryGetComponent(out Health playerHealth)) return;
         ApplyDamage(playerHealth);
     }
 

@@ -28,7 +28,7 @@ public class ZombieMovement : MonoBehaviour, IPhysicsObserver
 
     public void MoveTowards(Transform target)
     {
-        if (navMeshAgent.enabled)
+        if (navMeshAgent != null && navMeshAgent.enabled)
         {
             navMeshAgent.SetDestination(player.position);
             transform.forward = Vector3.Lerp(transform.forward, player.position - transform.position, rotationSpeed);
@@ -37,7 +37,7 @@ public class ZombieMovement : MonoBehaviour, IPhysicsObserver
 
     public void Stop()
     {
-        if (navMeshAgent.enabled)
+        if (navMeshAgent != null && navMeshAgent.enabled)
         {
             navMeshAgent.ResetPath();
         }
@@ -45,6 +45,7 @@ public class ZombieMovement : MonoBehaviour, IPhysicsObserver
 
     public void OnHealthChanged(Vector3 attackerPosition, float kickForce)
     {
+        Stop();
         SwitchMode(false);
         var kickDirection = new Vector3(
             (transform.position.x - attackerPosition.x),
@@ -59,8 +60,7 @@ public class ZombieMovement : MonoBehaviour, IPhysicsObserver
     {
         yield return new WaitForSeconds(delay);
 
-        navMeshAgent.enabled = true;
-        rb.isKinematic = true;
+        SwitchMode(true);
     }
 
     //private IEnumerator RestoreNavMeshWhenGrounded()

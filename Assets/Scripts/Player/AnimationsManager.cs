@@ -11,7 +11,7 @@ public class AnimationsManager : MonoBehaviour
         playerInput = new PlayerInput();
         playerInput.Gameplay.Enable();
         //playerInput.Gameplay.Dash.performed += OnDashPerformed; 
-        playerInput.Gameplay.Attack.performed += Attack; 
+        //playerInput.Gameplay.Attack.performed += Attack; 
     }
 
     private void Update()
@@ -19,7 +19,7 @@ public class AnimationsManager : MonoBehaviour
         animator.SetFloat("Speed", playerInput.Gameplay.MoveKeyboard.ReadValue<Vector2>().magnitude);
     }
 
-    private void Attack(InputAction.CallbackContext context)
+    public void OnAttack()
     {
         animator.SetTrigger("MeleeAttack");
     }

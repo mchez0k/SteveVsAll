@@ -1,9 +1,7 @@
 using UnityEngine;
 
-// Базовый класс для оружия
 public abstract class Weapon : MonoBehaviour
 {
+    public WeaponSO WeaponData;
     public abstract void Attack();
-
-    public abstract void DecreaseCooldown();
 }

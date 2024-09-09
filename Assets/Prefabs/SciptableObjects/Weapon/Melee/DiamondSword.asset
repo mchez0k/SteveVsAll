@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05b1d41e504b479499c67d212ded08ee, type: 3}
   m_Name: DiamondSword
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 9913ceeb65d589f4e938a58e9242aacd, type: 3}
+  coolDown: 0.625
+  damage: 7
   attackRange: 1.5
-  maxEnemies: 5
-  damage: 123
-  kickForce: 1
-  coolDown: 0.5
+  maxEnemies: 2
+  kickForce: 5

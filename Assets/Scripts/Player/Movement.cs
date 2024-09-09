@@ -12,6 +12,7 @@ public class Movement : MonoBehaviour, IPhysicsObserver
 
 
     private float lastDashTime = -10f;
+    private bool isCanMove = true;
 
     [SerializeField] private Rigidbody rb;
     //[SerializeField] private DualVirtualJoystick virtualJoystick;
@@ -55,39 +56,38 @@ public class Movement : MonoBehaviour, IPhysicsObserver
     }
 
     void FixedUpdate()
-{
-    Vector2 movementInput = Vector2.zero;
+    {
+        Vector2 movementInput = Vector2.zero;
 
-    movementInput += playerInput.Gameplay.MoveKeyboard.ReadValue<Vector2>();
+        movementInput += playerInput.Gameplay.MoveKeyboard.ReadValue<Vector2>();
 
-    //if (virtualJoystick != null)
-    //{
-    //    movementInput += virtualJoystick.leftInputVector;
-    //}
+        if (movementInput.sqrMagnitude < 0.1f || !isCanMove) return;
 
-    if (movementInput.sqrMagnitude < 0.1f) return;
+        Vector3 movement = new Vector3(movementInput.x, 0, movementInput.y) * speed;
 
-    Vector3 movement = new Vector3(movementInput.x, 0, movementInput.y) * speed;
+        Vector3 targetVelocity = new Vector3(movement.x, 0f, movement.z);
 
-    // Плавно изменяем скорость.
-    Vector3 currentVelocity = rb.velocity;
-    Vector3 targetVelocity = new Vector3(movement.x, currentVelocity.y, movement.z);
+        rb.velocity += targetVelocity;
 
-    // Используем функцию Lerp для плавного перемещения к целевой скорости.
-    rb.velocity = Vector3.Lerp(currentVelocity, targetVelocity, Time.fixedDeltaTime * 10f);
-
-    // Ограничиваем максимальную горизонтальную скорость.
-    rb.velocity = Vector3.ClampMagnitude(rb.velocity, speed);
-}
+        rb.velocity = Vector3.ClampMagnitude(rb.velocity, speed);
+    }
 
     public void OnHealthChanged(Vector3 attackerPosition, float kickForce)
     {
+        isCanMove = false;
         var kickDirection = new Vector3(
             (transform.position.x - attackerPosition.x),
             1f,
             (transform.position.z - attackerPosition.z)
         ).normalized * kickForce;
         rb.AddForce(kickDirection, ForceMode.Impulse);
+        StartCoroutine(EnableMove(kickForce / 10f));
+    }
+
+    private IEnumerator EnableMove(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        isCanMove = true;
     }
 
     void RotateTowardsMouse()
