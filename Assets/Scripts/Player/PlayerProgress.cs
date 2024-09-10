@@ -14,7 +14,7 @@ public static class PlayerProgress
         currentCoins += coins;
         currentExpirience += exp;
         currentKills++;
-        Debug.Log("Обновились данные: " + currentCoins + " " + currentExpirience + " " + currentKills);
+        Debug.Log("Обновились данные:\nCoins: " + currentCoins + "\nExp: " + currentExpirience + "\nKills: " + currentKills);
     }
 
     public static void DoubleCoins()
@@ -40,15 +40,22 @@ public static class PlayerProgress
 
     public static void SetWeapon(WeaponSO newWeapon, int id)
     {
-        Debug.Log("Старое оружие: " + currentWeapon.name);
         YandexGame.savesData.currentWeaponId = id;
         currentWeapon = newWeapon;
         Debug.Log("Новое оружие: " + newWeapon.name);
     }
+
     public static WeaponSO GetWeapon()
     {
         Debug.Log("Получаем оружие: " + currentWeapon.name);
         return currentWeapon;
+    }
+
+    public static void ClearCurrentStats()
+    {
+        currentCoins = 0;
+        currentExpirience = 0;
+        currentKills = 0;
     }
 
     public static void SaveProgress()
@@ -58,6 +65,7 @@ public static class PlayerProgress
         YandexGame.savesData.Kills += currentKills;
 
         Debug.Log("Сохранение данных");
+        ClearCurrentStats();
         YandexGame.SaveProgress();
     }
 

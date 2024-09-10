@@ -25,12 +25,12 @@ public class Movement : MonoBehaviour, IPhysicsObserver
         rb = GetComponent<Rigidbody>();
         playerInput = new PlayerInput();
         playerInput.Gameplay.Enable();
-        playerInput.Gameplay.Dash.performed += OnDashPerformed; // Подписываемся на событие
+        playerInput.Gameplay.Dash.performed += OnDashPerformed;
     }
 
     private void OnDestroy()
     {
-        playerInput.Gameplay.Dash.performed -= OnDashPerformed; // Отписываемся от события
+        playerInput.Gameplay.Dash.performed -= OnDashPerformed;
     }
 
     private void OnDashPerformed(InputAction.CallbackContext context)

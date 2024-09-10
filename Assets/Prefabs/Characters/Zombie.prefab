@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3843860048403594331}
   - component: {fileID: 8889535881088818083}
   - component: {fileID: 5808805221164901897}
+  - component: {fileID: 7158326317270681493}
   - component: {fileID: 1035234577090796136}
   - component: {fileID: 9130464745787957113}
   - component: {fileID: 9220407738539480048}
@@ -111,6 +112,22 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7b6d9b5e5d48894458e96ca81dc7245c, type: 3}
   deathClips:
   - {fileID: 8300000, guid: 22056f51c9b8c324cba890c776d24a4b, type: 3}
+--- !u!114 &7158326317270681493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895803396438371918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ada0d041ec1fce4e915250b90f95510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageColor: {r: 1, g: 0.7216981, b: 0.7216981, a: 1}
+  blinkDuration: 0.5
+  mesh: {fileID: 6232319134204643128}
+  originalMaterials: []
 --- !u!114 &1035234577090796136
 MonoBehaviour:
   m_ObjectHideFlags: 0

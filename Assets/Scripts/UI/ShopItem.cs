@@ -24,6 +24,7 @@ public class ShopItem : MonoBehaviour
     {
         shopItems.Add(this);
         name = item.name;
+        Debug.Log("Настраиваем " + name);
 
         isPurchased = YandexGame.savesData.buyIds.Contains(id);
 
@@ -37,6 +38,7 @@ public class ShopItem : MonoBehaviour
         else if (id == YandexGame.savesData.currentWeaponId)
         {
             ChangeText("Выбрано!");
+            PlayerProgress.SetWeapon(item, id);
         } else
         {
             ChangeText("Куплено!");
@@ -47,11 +49,12 @@ public class ShopItem : MonoBehaviour
     private void OnDisable()
     {
         priceButton.onClick.RemoveListener(Buy);
-        shopItems.Remove(this);  // Удаляем из списка при разрушении объекта
+        shopItems.Remove(this);
     }
 
     public void Buy()
     {
+        Debug.Log($"Попытка купить {name} с балансом {balance}!");
         if (balance < price) return;
         Debug.Log($"Покупка {name}!");
         balance -= price;
@@ -79,12 +82,10 @@ public class ShopItem : MonoBehaviour
     {
         foreach (var shopItem in shopItems)
         {
-            Debug.Log("Логика для " + shopItem.name + " с Id: " +  shopItem.id + " оно куплено: " + shopItem.isPurchased);
             if (shopItem == null || !shopItem.isPurchased) continue;
             if (shopItem.id == id)
             {
                 shopItem.ChangeText("Выбрано!");
-                Debug.Log(shopItem.gameObject.name + " выбран");
                 PlayerProgress.SetWeapon(item, id);
             }
             else
@@ -92,5 +93,15 @@ public class ShopItem : MonoBehaviour
                 shopItem.ChangeText("Куплено!");
             }
         }
+    }
+
+    public int GetId()
+    {
+        return id;
+    }
+
+    public WeaponSO GetWeapon()
+    {
+        return item;
     }
 }

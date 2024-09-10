@@ -7,5 +7,5 @@ public interface IPhysicsObserver
     /// </summary>
     /// <param name="entityPosition">Позиция сущности, которая ударила</param>
     /// <param name="kickForce">Сила, с которой персонаж оттолкнётся</param>
-    void OnHealthChanged(Vector3 entityPosition, float kickForce) { }
+    public void OnHealthChanged(Vector3 entityPosition, float kickForce) { }
 }

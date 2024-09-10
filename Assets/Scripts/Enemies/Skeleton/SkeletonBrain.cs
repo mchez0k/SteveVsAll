@@ -16,6 +16,7 @@ public class SkeletonBrain : MonoBehaviour
     public int ExpirienceReward;
 
     private SkeletonMovement movement;
+    private SoundManager soundManager;
 
     private float cooldown = 0f;
 
@@ -24,6 +25,7 @@ public class SkeletonBrain : MonoBehaviour
     private void Awake()
     {
         movement = GetComponent<SkeletonMovement>();
+        soundManager = GetComponent<SoundManager>();
 
         player = FindObjectOfType<Movement>().transform;
 
@@ -58,6 +60,7 @@ public class SkeletonBrain : MonoBehaviour
         transform.LookAt(player.position);
         if (cooldown <= 0 && Vector3.Distance(transform.position, player.position) < shootDistance)
         {
+            soundManager.OnAttack();
             bow.Attack();
             cooldown = bow.WeaponData.coolDown;
         }

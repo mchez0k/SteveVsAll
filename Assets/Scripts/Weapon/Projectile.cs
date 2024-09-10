@@ -19,7 +19,13 @@ public class Projectile : MonoBehaviour
             health.TakeDamage(transform.position, data.damage, data.kickForce);
             Destroy(gameObject, 5f);
         }
-        transform.parent = collision.transform;
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Default"))
+        {
+            transform.parent = null;
+        } else
+        {
+            transform.parent = collision.transform;
+        }
         Destroy(GetComponent<Rigidbody>());
         Destroy(GetComponent<CapsuleCollider>());
         isOnGround = true;

@@ -46,22 +46,16 @@ public class Health : MonoBehaviour
 
         soundManager = GetComponent<SoundManager>();
 
-        if (TryGetComponent(out ZombieMovement zombieMovement))
-        {
-            RegisterPhysicsObserver(zombieMovement);
-        }
-        if (TryGetComponent(out SkeletonMovement skeletonMovement))
-        {
-            RegisterPhysicsObserver(skeletonMovement);
-        }
-        if (TryGetComponent(out Movement movement))
-        {
-            RegisterPhysicsObserver(movement);
-        }
-        if (TryGetComponent(out PlayerUI playerUI))
-        {
-            RegisterUIObserver(playerUI);
-        }
+        if (TryGetComponent(out ZombieMovement zombieMovement)) RegisterPhysicsObserver(zombieMovement);
+
+        if (TryGetComponent(out SkeletonMovement skeletonMovement)) RegisterPhysicsObserver(skeletonMovement);
+
+        if (TryGetComponent(out Movement movement)) RegisterPhysicsObserver(movement);
+
+        if (TryGetComponent(out PlayerUI playerUI)) RegisterUIObserver(playerUI);
+
+        if (TryGetComponent(out DamageBlink blink)) RegisterPhysicsObserver(blink);
+
         if (TryGetComponent(out MobDeath mob))
         {
             RegisterDeathObserver(mob);

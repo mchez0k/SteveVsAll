@@ -27,6 +27,9 @@ public class EnemySpawner : MonoBehaviour
         {
             TrySpawnMob();
         }
+        if (spawnerTime < 1.5f) return;
+        spawnerTime -= Time.deltaTime / 600;
+
     }
 
     public void TrySpawnMob()

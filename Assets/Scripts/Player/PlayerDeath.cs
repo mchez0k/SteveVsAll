@@ -85,13 +85,13 @@ public class PlayerDeath : MonoBehaviour, IDeathObserver
     {
         Respawn();
 
-        //YandexGame.RewVideoShow(0);
+        YandexGame.RewVideoShow(0);
     }
 
     public void WatchDoubleAd()
     {
         DoubleCoins();
 
-        //YandexGame.RewVideoShow(1);
+        YandexGame.RewVideoShow(1);
     }
 }
