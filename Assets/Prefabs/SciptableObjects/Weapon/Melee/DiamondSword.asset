@@ -15,6 +15,6 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 9913ceeb65d589f4e938a58e9242aacd, type: 3}
   coolDown: 0.625
   damage: 7
+  kickForce: 10
   attackRange: 1.5
-  maxEnemies: 2
-  kickForce: 5
+  maxEnemies: 3

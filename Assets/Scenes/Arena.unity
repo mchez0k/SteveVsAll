@@ -4116,10 +4116,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mobsPrefabs:
+  - {fileID: 1895803396438371918, guid: c63524bba78bd4d4ebe7a214090773f7, type: 3}
   - {fileID: 6236627264545526226, guid: 714e61a0d8e794444a9a0ea6f947ca59, type: 3}
-  - {fileID: 6236627264545526226, guid: 714e61a0d8e794444a9a0ea6f947ca59, type: 3}
-  maxMobs: 1
-  spawnerTime: 2
+  maxMobs: 20
+  spawnerTime: 4
   minDistance: 10
   maxDistance: 20
 --- !u!82 &1528253474

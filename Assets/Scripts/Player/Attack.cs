@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,7 +19,7 @@ public class Attack : MonoBehaviour
         playerInput.Gameplay.Attack.performed += OnAttack;
 
         animationsManager = GetComponent<AnimationsManager>();
-        currentCooldown = currentWeapon.WeaponData.coolDown;
+        SetWeapon();
         soundManager = GetComponent<SoundManager>();
     }
 
@@ -38,10 +39,11 @@ public class Attack : MonoBehaviour
         }
     }
 
-    private void SetWeapon(Weapon weapon)
+    public void SetWeapon()
     {
-        currentWeapon = weapon;
-        currentCooldown = weapon.WeaponData.coolDown;
+        var weapon = PlayerProgress.GetWeapon();
+        currentWeapon.WeaponData = weapon;
+        currentCooldown = weapon.coolDown;
     }
 
 }

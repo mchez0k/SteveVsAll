@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05b1d41e504b479499c67d212ded08ee, type: 3}
-  m_Name: StoneSword
+  m_Name: WoodenAxe
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: ccae0e24cae94d64fa096530a10a4b38, type: 3}
-  coolDown: 0.625
-  damage: 5
-  kickForce: 5
-  attackRange: 1.5
-  maxEnemies: 2
+  sprite: {fileID: 21300000, guid: a9fc497e64549004ca61ae475114ab72, type: 3}
+  coolDown: 1
+  damage: 6
+  kickForce: 7
+  attackRange: 2
+  maxEnemies: 1

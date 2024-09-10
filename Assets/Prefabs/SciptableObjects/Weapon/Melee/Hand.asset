@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05b1d41e504b479499c67d212ded08ee, type: 3}
   m_Name: Hand
   m_EditorClassIdentifier: 
-  texture: {fileID: 0}
-  attackRange: 1
-  maxEnemies: 1
+  sprite: {fileID: 0}
+  coolDown: 0.6
   damage: 1
   kickForce: 1
-  coolDown: 1
+  attackRange: 1
+  maxEnemies: 1

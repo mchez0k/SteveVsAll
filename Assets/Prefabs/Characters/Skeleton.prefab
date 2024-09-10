@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac919a37d38bfe644a623b8e177f36de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
+  health: 15
   Coins: 1
   Experience: 1
 --- !u!114 &7832350376674245493

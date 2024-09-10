@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05b1d41e504b479499c67d212ded08ee, type: 3}
   m_Name: Stick
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 7bad3eb7344ee5941b6a3dda5d76c6b7, type: 3}
+  coolDown: 0.6
+  damage: 2
+  kickForce: 2
   attackRange: 1
   maxEnemies: 1
-  damage: 1
-  kickForce: 2
-  coolDown: 1

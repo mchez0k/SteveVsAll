@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: WoodenSword
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: bf4601cd703065841b23ac480830ae89, type: 3}
-  attackRange: 1.5
-  maxEnemies: 1
+  coolDown: 0.625
   damage: 4
   kickForce: 5
-  coolDown: 1
+  attackRange: 1.5
+  maxEnemies: 2
