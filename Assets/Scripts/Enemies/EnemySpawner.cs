@@ -15,6 +15,11 @@ public class EnemySpawner : MonoBehaviour
 
     public static int mobsCount;
 
+    private void Start()
+    {
+        mobsCount = 0;
+    }
+
     private void FixedUpdate()
     {
         currentTime -= Time.deltaTime;
@@ -42,7 +47,7 @@ public class EnemySpawner : MonoBehaviour
         {
             Vector3 randomPoint = center + Random.insideUnitSphere * range;
             NavMeshHit hit;
-            if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas) && Vector3.Distance(transform.position, hit.position) < minDistance)
+            if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas) && Vector3.Distance(transform.position, hit.position) >= minDistance)
             {
                 result = hit.position;
                 return true;

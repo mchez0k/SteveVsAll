@@ -16,4 +16,4 @@ MonoBehaviour:
   coolDown: 5
   damage: 1
   kickForce: 0
-  startSpeed: 15
+  startSpeed: 20

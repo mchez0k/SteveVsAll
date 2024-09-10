@@ -4050,10 +4050,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1.8
+  m_Radius: 0.23635215
+  m_Height: 1.6658118
   m_Direction: 1
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Center: {x: 0.018730834, y: 0.8329059, z: -0.0044455975}
 --- !u!114 &1528253460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4116,9 +4116,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mobsPrefabs:
-  - {fileID: 1895803396438371918, guid: c63524bba78bd4d4ebe7a214090773f7, type: 3}
   - {fileID: 6236627264545526226, guid: 714e61a0d8e794444a9a0ea6f947ca59, type: 3}
-  maxMobs: 20
+  - {fileID: 6236627264545526226, guid: 714e61a0d8e794444a9a0ea6f947ca59, type: 3}
+  maxMobs: 1
   spawnerTime: 2
   minDistance: 10
   maxDistance: 20
@@ -6875,7 +6875,7 @@ PrefabInstance:
     - target: {fileID: 81216532844244542, guid: 195c90d44bd39fc45b6c90c3ef453943,
         type: 3}
       propertyPath: speed
-      value: 3.5
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 81216532844244542, guid: 195c90d44bd39fc45b6c90c3ef453943,
         type: 3}
