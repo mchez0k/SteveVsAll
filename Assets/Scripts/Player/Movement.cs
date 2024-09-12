@@ -18,11 +18,14 @@ public class Movement : MonoBehaviour, IPhysicsObserver
     //[SerializeField] private DualVirtualJoystick virtualJoystick;
 
     private PlayerInput playerInput;
+    private AnimationsManager animationsManager;
     private Collider[] ground = new Collider[1];
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        animationsManager = GetComponent<AnimationsManager>();
+
         playerInput = new PlayerInput();
         playerInput.Gameplay.Enable();
         playerInput.Gameplay.Dash.performed += OnDashPerformed;
@@ -60,6 +63,8 @@ public class Movement : MonoBehaviour, IPhysicsObserver
         Vector2 movementInput = Vector2.zero;
 
         movementInput += playerInput.Gameplay.MoveKeyboard.ReadValue<Vector2>();
+
+        animationsManager.OnMove(movementInput.magnitude);
 
         if (movementInput.sqrMagnitude < 0.1f || !isCanMove) return;
 

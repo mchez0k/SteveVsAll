@@ -33,7 +33,6 @@ public class SoundManager : MonoBehaviour
 
     public void OnDeath()
     {
-        Debug.Log("deathAudio");
         if (deathClips != null && audioSource != null && deathClips.Length > 0)
         {
             audioSource.clip = deathClips[Random.Range(0, deathClips.Length)];

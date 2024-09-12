@@ -4,7 +4,7 @@ public class MeleeWeapon : Weapon
 {
     private IMeleeWeapon meleeData;
 
-    private void Awake()
+    private void Start()
     {
         meleeData = (IMeleeWeapon)WeaponData;
         GetComponent<SpriteRenderer>().sprite = WeaponData.sprite;

@@ -22,9 +22,13 @@ public class ShopItem : MonoBehaviour
 
     private void Awake()
     {
+
+    }
+
+    private void OnEnable()
+    {
         shopItems.Add(this);
         name = item.name;
-        Debug.Log("Настраиваем " + name);
 
         isPurchased = YandexGame.savesData.buyIds.Contains(id);
 
@@ -39,7 +43,8 @@ public class ShopItem : MonoBehaviour
         {
             ChangeText("Выбрано!");
             PlayerProgress.SetWeapon(item, id);
-        } else
+        }
+        else
         {
             ChangeText("Куплено!");
 

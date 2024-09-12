@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class AnimationsManager : MonoBehaviour
 {
@@ -14,9 +13,14 @@ public class AnimationsManager : MonoBehaviour
         //playerInput.Gameplay.Attack.performed += Attack; 
     }
 
-    private void Update()
+    //private void Update()
+    //{
+    //    animator.SetFloat("Speed", playerInput.Gameplay.MoveKeyboard.ReadValue<Vector2>().magnitude);
+    //}
+
+    public void OnMove(float move)
     {
-        animator.SetFloat("Speed", playerInput.Gameplay.MoveKeyboard.ReadValue<Vector2>().magnitude);
+        animator.SetFloat("Speed", move);
     }
 
     public void OnAttack()

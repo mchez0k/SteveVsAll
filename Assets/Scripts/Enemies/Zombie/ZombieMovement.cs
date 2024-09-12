@@ -10,6 +10,7 @@ public class ZombieMovement : MonoBehaviour, IPhysicsObserver
 
     private NavMeshAgent navMeshAgent;
     private Rigidbody rb;
+    private AnimationsManager animationsManager;
 
     private Transform player;
 
@@ -17,6 +18,8 @@ public class ZombieMovement : MonoBehaviour, IPhysicsObserver
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
+        animationsManager = GetComponent<AnimationsManager>();
+
         player = FindObjectOfType<Movement>().transform;
 
         if (player == null)
@@ -30,6 +33,7 @@ public class ZombieMovement : MonoBehaviour, IPhysicsObserver
         if (navMeshAgent != null && navMeshAgent.enabled)
         {
             navMeshAgent.SetDestination(player.position);
+            animationsManager.OnMove(navMeshAgent.velocity.magnitude);
             transform.forward = Vector3.Lerp(transform.forward, player.position - transform.position, rotationSpeed);
         }
     }
@@ -39,6 +43,7 @@ public class ZombieMovement : MonoBehaviour, IPhysicsObserver
         if (navMeshAgent != null && navMeshAgent.enabled)
         {
             navMeshAgent.ResetPath();
+            animationsManager.OnMove(navMeshAgent.velocity.magnitude);
         }
     }
 

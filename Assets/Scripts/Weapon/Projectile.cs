@@ -17,7 +17,7 @@ public class Projectile : MonoBehaviour
         if (collision.gameObject.TryGetComponent(out Health health))
         {
             health.TakeDamage(transform.position, data.damage, data.kickForce);
-            Destroy(gameObject, 5f);
+            Destroy(gameObject, 1f);
         }
         if (collision.gameObject.layer == LayerMask.NameToLayer("Default"))
         {
@@ -29,5 +29,6 @@ public class Projectile : MonoBehaviour
         Destroy(GetComponent<Rigidbody>());
         Destroy(GetComponent<CapsuleCollider>());
         isOnGround = true;
+        Destroy(gameObject, 1f);
     }
 }

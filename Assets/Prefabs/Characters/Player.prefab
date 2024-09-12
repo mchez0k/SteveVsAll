@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d7e8a733b6515340a518596cfd4cf83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponData: {fileID: 11400000, guid: 039a9d96852556c4395e38509f458ff2, type: 2}
+  WeaponData: {fileID: 11400000, guid: 3d2742e88dcdb484eadf19bf24c694af, type: 2}
 --- !u!212 &2948458935232042667
 SpriteRenderer:
   m_ObjectHideFlags: 0

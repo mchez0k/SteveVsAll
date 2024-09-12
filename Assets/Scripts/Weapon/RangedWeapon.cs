@@ -7,7 +7,7 @@ public class RangedWeapon : Weapon
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform firePoint;
 
-    private void Awake()
+    private void Start()
     {
         rangedData = (IRangedWeapon)WeaponData;
         GetComponent<SpriteRenderer>().sprite = WeaponData.sprite;
