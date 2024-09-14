@@ -10,16 +10,16 @@ public class Game : MonoBehaviour
     [SerializeField] private GameObject steveModel;
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject shopMenu;
-    [SerializeField] private Transform shopBackground;
+    [SerializeField] private Transform itemGrid;
 
     [SerializeField] private WeaponSO hand;
 
     private void Awake()
     {
         PlayerProgress.SetHand(hand);
-        for (int i = 0; i < shopBackground.childCount; i++)
+        for (int i = 0; i < itemGrid.childCount; i++)
         {
-            var item = shopBackground.GetChild(i).GetComponent<ShopItem>();
+            var item = itemGrid.GetChild(i).GetComponent<ShopItem>();
             if (item.GetId() == YandexGame.savesData.currentWeaponId)
             {
                 PlayerProgress.SetWeapon(item.GetWeapon(), item.GetId());

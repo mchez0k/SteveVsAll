@@ -301,10 +301,10 @@ MonoBehaviour:
   mobsPrefabs:
   - {fileID: 1895803396438371918, guid: c63524bba78bd4d4ebe7a214090773f7, type: 3}
   - {fileID: 6236627264545526226, guid: 714e61a0d8e794444a9a0ea6f947ca59, type: 3}
-  maxMobs: 20
-  spawnerTime: 4
+  maxMobs: 40
+  spawnerTime: 3.5
   minDistance: 10
-  maxDistance: 20
+  maxDistance: 15
 --- !u!114 &4348005478142857979
 MonoBehaviour:
   m_ObjectHideFlags: 0

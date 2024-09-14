@@ -70,6 +70,7 @@ public class Health : MonoBehaviour
     {
         if (other.CompareTag("KillZone"))
         {
+            Debug.Log(name + " попал в KillZone");
             deathObserver.OnDeath(Coins, Experience);
         }
     }

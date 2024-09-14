@@ -44,11 +44,12 @@ public class PlayerDeath : MonoBehaviour, IDeathObserver
 
     public void Respawn()
     {
+        player.transform.position = new Vector3(0f, 2f, 0f);
+
         reviveButton.SetActive(false);
         mainMenu.SetActive(false);
         player.SetActive(true);
 
-        player.transform.position = new Vector3(0f, 1f, 0f);
         player.GetComponent<Health>().Heal(20);
     }
 
@@ -83,15 +84,11 @@ public class PlayerDeath : MonoBehaviour, IDeathObserver
 
     public void WatchRespawnAd()
     {
-        Respawn();
-
         YandexGame.RewVideoShow(0);
     }
 
     public void WatchDoubleAd()
     {
-        DoubleCoins();
-
         YandexGame.RewVideoShow(1);
     }
 }
