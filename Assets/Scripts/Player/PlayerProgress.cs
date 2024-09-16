@@ -45,6 +45,15 @@ public static class PlayerProgress
         Debug.Log("Новое оружие: " + newWeapon.name);
     }
 
+    public static void BuyWeapon(WeaponSO newWeapon, int id, int balance)
+    {
+        currentWeapon = newWeapon;
+        YandexGame.savesData.Coins = balance;
+        YandexGame.savesData.buyIds.Add(id);
+        YandexGame.savesData.currentWeaponId = id;
+        Debug.Log("Новое оружие: " + newWeapon.name);
+    }
+
     public static WeaponSO GetWeapon()
     {
         Debug.Log("Получаем оружие: " + currentWeapon.name);
@@ -58,7 +67,7 @@ public static class PlayerProgress
         currentKills = 0;
     }
 
-    public static void SaveProgress()
+    public static void SaveProgress() //с проблемами при сохранении обрати внимание на этот метод
     {
         YandexGame.savesData.Coins += currentCoins;
         YandexGame.savesData.Expirience += currentExpirience;
@@ -66,7 +75,14 @@ public static class PlayerProgress
 
         Debug.Log("Сохранение данных");
         ClearCurrentStats();
+
+        Debug.Log("До");
+        Debug.Log(YandexGame.savesData);
+
         YandexGame.SaveProgress();
+
+        Debug.Log("После");
+        Debug.Log(YandexGame.savesData);
     }
 
 }

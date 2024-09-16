@@ -4,8 +4,6 @@ using UnityEngine.AI;
 
 public class ZombieMovement : MonoBehaviour, IPhysicsObserver
 {
-    [SerializeField] private float rotationSpeed = 3f;
-
     [SerializeField] private float delay = 0.5f;
 
     private NavMeshAgent navMeshAgent;
@@ -34,7 +32,6 @@ public class ZombieMovement : MonoBehaviour, IPhysicsObserver
         {
             navMeshAgent.SetDestination(player.position);
             animationsManager.OnMove(navMeshAgent.velocity.magnitude);
-            transform.forward = Vector3.Lerp(transform.forward, player.position - transform.position, rotationSpeed);
         }
     }
 

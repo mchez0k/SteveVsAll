@@ -27,6 +27,16 @@ public class Attack : MonoBehaviour
     {
         currentCooldown -= Time.deltaTime;
     }
+    public void OnAttack()
+    {
+        if (currentWeapon != null && currentCooldown < 0)
+        {
+            animationsManager.OnAttack();
+            soundManager.OnAttack();
+            currentWeapon.Attack();
+            currentCooldown = currentWeapon.WeaponData.coolDown;
+        }
+    }
 
     private void OnAttack(InputAction.CallbackContext context)
     {

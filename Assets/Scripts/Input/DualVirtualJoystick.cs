@@ -34,6 +34,8 @@ public class DualVirtualJoystick : MonoBehaviour
 
         UpdateLeftJoystickUI(leftInputVector);
         UpdateRightJoystickUI(rightInputVector);
+        Debug.Log("Left " + leftJoystickHandle.anchoredPosition);
+        Debug.Log("Right" +rightJoystickHandle.anchoredPosition);
     }
 
     private void UpdateLeftJoystickUI(Vector2 input)

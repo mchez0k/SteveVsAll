@@ -1,6 +1,7 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
 using System.Collections;
+using YG;
 
 public class Movement : MonoBehaviour, IPhysicsObserver
 {
@@ -16,23 +17,40 @@ public class Movement : MonoBehaviour, IPhysicsObserver
 
     [SerializeField] private Rigidbody rb;
     //[SerializeField] private DualVirtualJoystick virtualJoystick;
+    [SerializeField] private Joystick moveJoystick;
+    [SerializeField] private Joystick lookJoystick;
+
 
     private PlayerInput playerInput;
     private AnimationsManager animationsManager;
     private Collider[] ground = new Collider[1];
+
+    private bool isMobile = false;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         animationsManager = GetComponent<AnimationsManager>();
 
-        playerInput = new PlayerInput();
-        playerInput.Gameplay.Enable();
-        playerInput.Gameplay.Dash.performed += OnDashPerformed;
+        isMobile = YandexGame.EnvironmentData.isMobile || YandexGame.EnvironmentData.isTablet;
+        Debug.Log("Устройство: " + YandexGame.EnvironmentData.deviceType);
+        if (isMobile)
+        {
+            moveJoystick.gameObject.SetActive(true);
+            lookJoystick.gameObject.SetActive(true);
+        } else
+        {
+            playerInput = new PlayerInput();
+            playerInput.Gameplay.Enable();
+            playerInput.Gameplay.Dash.performed += OnDashPerformed;
+            moveJoystick.gameObject.SetActive(false);
+            lookJoystick.gameObject.SetActive(false);
+        }
     }
 
     private void OnDestroy()
     {
+        if (isMobile) return;
         playerInput.Gameplay.Dash.performed -= OnDashPerformed;
     }
 
@@ -60,9 +78,23 @@ public class Movement : MonoBehaviour, IPhysicsObserver
 
     void FixedUpdate()
     {
+        Move();
+    }
+
+    private void Move()
+    {
         Vector2 movementInput = Vector2.zero;
 
-        movementInput += playerInput.Gameplay.MoveKeyboard.ReadValue<Vector2>();
+        if (isMobile)
+        {
+            movementInput += new Vector2(moveJoystick.Horizontal, moveJoystick.Vertical);
+        } 
+        else
+        {
+            movementInput += playerInput.Gameplay.MoveKeyboard.ReadValue<Vector2>();
+
+        }
+
 
         animationsManager.OnMove(movementInput.magnitude);
 
@@ -77,6 +109,45 @@ public class Movement : MonoBehaviour, IPhysicsObserver
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, speed);
     }
 
+    private IEnumerator EnableMove(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        isCanMove = true;
+    }
+
+    void RotateTowardsMouse()
+    {
+        if (isMobile)
+        {
+            Vector3 direction = new Vector3(lookJoystick.Horizontal, 0f, lookJoystick.Vertical);
+            if (direction.sqrMagnitude > 0.01f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSensitivity);
+                GetComponent<Attack>().OnAttack();
+            }
+        } 
+        else
+        {
+            Plane playerPlane = new Plane(Vector3.up, transform.position);
+            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+            float hitDist;
+
+            if (playerPlane.Raycast(ray, out hitDist))
+            {
+                Vector3 targetPoint = ray.GetPoint(hitDist);
+                Vector3 direction = targetPoint - transform.position;
+                direction.y = 0;
+
+                if (direction.sqrMagnitude > 0.01f)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(direction);
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSensitivity);
+                }
+            }
+        }
+        
+    }
     public void OnHealthChanged(Vector3 attackerPosition, float kickForce)
     {
         isCanMove = false;
@@ -89,31 +160,6 @@ public class Movement : MonoBehaviour, IPhysicsObserver
         StartCoroutine(EnableMove(kickForce / 10f));
     }
 
-    private IEnumerator EnableMove(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        isCanMove = true;
-    }
-
-    void RotateTowardsMouse()
-    {
-        Plane playerPlane = new Plane(Vector3.up, transform.position);
-        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-        float hitDist;
-
-        if (playerPlane.Raycast(ray, out hitDist))
-        {
-            Vector3 targetPoint = ray.GetPoint(hitDist);
-            Vector3 direction = targetPoint - transform.position;
-            direction.y = 0;
-
-            if (direction.sqrMagnitude > 0.01f)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSensitivity);
-            }
-        }
-    }
     private bool IsGrounded()
     {
         Physics.OverlapSphereNonAlloc(transform.position, 0.01f, ground, LayerMask.GetMask("Ground"));

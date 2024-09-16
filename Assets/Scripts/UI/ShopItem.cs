@@ -59,45 +59,41 @@ public class ShopItem : MonoBehaviour
 
     public void Buy()
     {
-        Debug.Log($"Попытка купить {name} с балансом {balance}!");
-        if (balance < price) return;
+        Debug.Log($"Попытка купить {name} с балансом {balance}");
+        if (balance < price || isPurchased) return;
         Debug.Log($"Покупка {name}!");
         balance -= price;
-        YandexGame.savesData.Coins = balance;
-        YandexGame.savesData.buyIds.Add(id);
-        YandexGame.savesData.currentWeaponId = id;
+
         isPurchased = true;
 
+        PlayerProgress.BuyWeapon(item, id, balance);
+
         ChangeText("Куплено!");
-
-        SelectWeapon();
-
-        YandexGame.SaveProgress();
-
+        PlayerProgress.SaveProgress();
     }
 
     private void ChangeText(string text)
     {
-        priceButton.interactable = false;
         priceButtonText.fontSize = 36f;
         priceButtonText.text = text;
     }
 
     public void SelectWeapon()
     {
+        Buy();
         foreach (var shopItem in shopItems)
         {
             if (shopItem == null || !shopItem.isPurchased) continue;
             if (shopItem.id == id)
             {
                 shopItem.ChangeText("Выбрано!");
-                PlayerProgress.SetWeapon(item, id);
             }
             else
             {
                 shopItem.ChangeText("Куплено!");
             }
         }
+        PlayerProgress.SaveProgress();
     }
 
     public int GetId()
