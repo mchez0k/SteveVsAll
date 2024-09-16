@@ -67,22 +67,23 @@ public static class PlayerProgress
         currentKills = 0;
     }
 
+    public static void UpdateScoreBoards(int newKills)
+    {
+        YandexGame.NewLeaderboardScores("Kills", newKills);
+    }
+
     public static void SaveProgress() //с проблемами при сохранении обрати внимание на этот метод
     {
         YandexGame.savesData.Coins += currentCoins;
         YandexGame.savesData.Expirience += currentExpirience;
         YandexGame.savesData.Kills += currentKills;
 
+        UpdateScoreBoards(YandexGame.savesData.Kills);
+
         Debug.Log("Сохранение данных");
         ClearCurrentStats();
 
-        Debug.Log("До");
-        Debug.Log(YandexGame.savesData);
-
         YandexGame.SaveProgress();
-
-        Debug.Log("После");
-        Debug.Log(YandexGame.savesData);
     }
 
 }

@@ -20,12 +20,7 @@ public class ShopItem : MonoBehaviour
 
     private static List<ShopItem> shopItems = new List<ShopItem>();
 
-    private void Awake()
-    {
-
-    }
-
-    private void OnEnable()
+    public void Init()
     {
         shopItems.Add(this);
         name = item.name;
@@ -47,8 +42,12 @@ public class ShopItem : MonoBehaviour
         else
         {
             ChangeText("Куплено!");
-
         }
+    }
+
+    private void OnEnable()
+    {
+        Init();
     }
 
     private void OnDisable()
