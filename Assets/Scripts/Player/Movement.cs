@@ -71,14 +71,10 @@ public class Movement : MonoBehaviour, IPhysicsObserver
         speed = originalSpeed;
     }
 
-    void Update()
-    {
-        RotateTowardsMouse();
-    }
-
     void FixedUpdate()
     {
         Move();
+        RotateTowardsMouse();
     }
 
     private void Move()
