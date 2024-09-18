@@ -79,12 +79,14 @@ public class ShopItem : MonoBehaviour
 
     public void SelectWeapon()
     {
+        Debug.Log("Попытка выбора оружия");
         Buy();
         foreach (var shopItem in shopItems)
         {
             if (shopItem == null || !shopItem.isPurchased) continue;
             if (shopItem.id == id)
             {
+                PlayerProgress.SetWeapon(item, id);
                 shopItem.ChangeText("Выбрано!");
             }
             else

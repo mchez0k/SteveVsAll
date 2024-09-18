@@ -36,12 +36,14 @@ public static class PlayerProgress
     {
         if (currentWeapon != null) return;
         currentWeapon = hand;
+        CharacterController car;
     }
 
     public static void SetWeapon(WeaponSO newWeapon, int id)
     {
         YandexGame.savesData.currentWeaponId = id;
         currentWeapon = newWeapon;
+        YandexGame.SaveProgress();
         Debug.Log("Новое оружие: " + newWeapon.name);
     }
 
@@ -51,6 +53,7 @@ public static class PlayerProgress
         YandexGame.savesData.Coins = balance;
         YandexGame.savesData.buyIds.Add(id);
         YandexGame.savesData.currentWeaponId = id;
+        YandexGame.SaveProgress();
         Debug.Log("Новое оружие: " + newWeapon.name);
     }
 
