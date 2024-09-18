@@ -7,26 +7,37 @@ public class Attack : MonoBehaviour
     [SerializeField] private Weapon currentWeapon;
     public float currentCooldown;
 
-    private PlayerInput playerInput;
+    //private PlayerInput playerInput;
     private AnimationsManager animationsManager;
     private SoundManager soundManager;
 
 
     private void Awake()
     {
-        playerInput = new PlayerInput();
-        playerInput.Gameplay.Enable();
-        playerInput.Gameplay.Attack.performed += OnAttack;
+        //playerInput = new PlayerInput();
+        //playerInput.Gameplay.Enable();
+        //playerInput.Gameplay.Attack.performed += OnAttack;
 
         animationsManager = GetComponent<AnimationsManager>();
         SetWeapon();
         soundManager = GetComponent<SoundManager>();
     }
 
+    private void OnDestroy()
+    {
+        //playerInput.Gameplay.Attack.performed -= OnAttack;
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0)) OnAttack();
+    }
+
     private void FixedUpdate()
     {
         currentCooldown -= Time.deltaTime;
     }
+
     public void OnAttack()
     {
         if (currentWeapon != null && currentCooldown < 0)

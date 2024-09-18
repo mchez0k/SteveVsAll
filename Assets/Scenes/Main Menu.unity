@@ -2534,7 +2534,7 @@ MonoBehaviour:
   priceButtonText: {fileID: 543446756}
   price: 10
   id: 2
-  isPurchased: 0
+  isPurchased: 1
 --- !u!114 &597827803
 MonoBehaviour:
   m_ObjectHideFlags: 0

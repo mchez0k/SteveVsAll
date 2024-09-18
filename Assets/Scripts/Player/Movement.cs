@@ -16,13 +16,14 @@ public class Movement : MonoBehaviour, IPhysicsObserver
     private bool isCanMove = true;
 
     [SerializeField] private Rigidbody rb;
-    //[SerializeField] private DualVirtualJoystick virtualJoystick;
     [SerializeField] private Joystick moveJoystick;
     [SerializeField] private Joystick lookJoystick;
+    [SerializeField] private GameObject dashButton;
 
 
-    private PlayerInput playerInput;
+    //private PlayerInput playerInput;
     private AnimationsManager animationsManager;
+    private Attack attack;
     private Collider[] ground = new Collider[1];
 
     private bool isMobile = false;
@@ -38,43 +39,35 @@ public class Movement : MonoBehaviour, IPhysicsObserver
         {
             moveJoystick.gameObject.SetActive(true);
             lookJoystick.gameObject.SetActive(true);
-        } else
+            dashButton.SetActive(true);
+            attack = GetComponent<Attack>();
+        }
+        else
         {
-            playerInput = new PlayerInput();
-            playerInput.Gameplay.Enable();
-            playerInput.Gameplay.Dash.performed += OnDashPerformed;
+            //playerInput = new PlayerInput();
+            //playerInput.Gameplay.Enable();
+            //playerInput.Gameplay.Dash.performed += OnDashPerformed;
             moveJoystick.gameObject.SetActive(false);
             lookJoystick.gameObject.SetActive(false);
+            dashButton.SetActive(false);
         }
     }
 
     private void OnDestroy()
     {
         if (isMobile) return;
-        playerInput.Gameplay.Dash.performed -= OnDashPerformed;
-    }
-
-    private void OnDashPerformed(InputAction.CallbackContext context)
-    {
-        if (Time.time >= lastDashTime + dashCooldown)
-        {
-            StartCoroutine(PerformDash());
-            lastDashTime = Time.time;
-        }
-    }
-
-    private IEnumerator PerformDash()
-    {
-        float originalSpeed = speed;
-        speed = dashSpeed;
-        yield return new WaitForSeconds(dashDuration);
-        speed = originalSpeed;
+        //playerInput.Gameplay.Dash.performed -= OnDashPerformed;
     }
 
     void FixedUpdate()
     {
         Move();
         RotateTowardsMouse();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift)) OnDashPerformed();
     }
 
     private void Move()
@@ -87,8 +80,9 @@ public class Movement : MonoBehaviour, IPhysicsObserver
         } 
         else
         {
-            movementInput += playerInput.Gameplay.MoveKeyboard.ReadValue<Vector2>();
-
+            //movementInput += playerInput.Gameplay.MoveKeyboard.ReadValue<Vector2>();
+            movementInput.x = Input.GetAxisRaw("Horizontal");
+            movementInput.y = Input.GetAxisRaw("Vertical");
         }
 
 
@@ -103,6 +97,23 @@ public class Movement : MonoBehaviour, IPhysicsObserver
         rb.velocity += targetVelocity;
 
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, speed);
+    }
+
+    public void OnDashPerformed()
+    {
+        if (Time.time >= lastDashTime + dashCooldown)
+        {
+            StartCoroutine(PerformDash());
+            lastDashTime = Time.time;
+        }
+    }
+
+    private IEnumerator PerformDash()
+    {
+        float originalSpeed = speed;
+        speed = dashSpeed;
+        yield return new WaitForSeconds(dashDuration);
+        speed = originalSpeed;
     }
 
     private IEnumerator EnableMove(float delay)
@@ -120,7 +131,7 @@ public class Movement : MonoBehaviour, IPhysicsObserver
             {
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSensitivity);
-                GetComponent<Attack>().OnAttack();
+                attack.OnAttack();
             }
         } 
         else
