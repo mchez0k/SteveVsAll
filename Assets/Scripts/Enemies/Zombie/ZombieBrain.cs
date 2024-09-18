@@ -14,7 +14,7 @@ public class ZombieBrain : MonoBehaviour
     public int CoinsReward;
     public int ExpirienceReward;
 
-    private ZombieMovement movement;
+    private MobMovement movement;
 
     private float cooldown = 0f;
 
@@ -22,7 +22,7 @@ public class ZombieBrain : MonoBehaviour
 
     private void Awake()
     {
-        movement = GetComponent<ZombieMovement>();
+        movement = GetComponent<MobMovement>();
 
         player = FindObjectOfType<Movement>().transform;
 

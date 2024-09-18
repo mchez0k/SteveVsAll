@@ -14,7 +14,10 @@ public static class PlayerProgress
         currentCoins += coins;
         currentExpirience += exp;
         currentKills++;
-        Debug.Log("Обновились данные:\nCoins: " + currentCoins + "\nExp: " + currentExpirience + "\nKills: " + currentKills);
+        Debug.Log("Обновились данные:\nCoins: " 
+            + currentCoins + "\nExp: " 
+            + currentExpirience + "\nKills: " 
+            + currentKills);
     }
 
     public static void DoubleCoins()
@@ -36,7 +39,6 @@ public static class PlayerProgress
     {
         if (currentWeapon != null) return;
         currentWeapon = hand;
-        CharacterController car;
     }
 
     public static void SetWeapon(WeaponSO newWeapon, int id)

@@ -11,15 +11,15 @@ GameObject:
   - component: {fileID: 1096891483366208330}
   - component: {fileID: 8422875478136685074}
   - component: {fileID: 3843860048403594331}
-  - component: {fileID: 8889535881088818083}
+  - component: {fileID: 5134272077077701689}
   - component: {fileID: 5808805221164901897}
   - component: {fileID: 7158326317270681493}
+  - component: {fileID: -3552734408457719522}
   - component: {fileID: 1035234577090796136}
   - component: {fileID: 9130464745787957113}
   - component: {fileID: 9220407738539480048}
   - component: {fileID: 5973683333739054245}
   - component: {fileID: 2869871995330831701}
-  - component: {fileID: -3552734408457719522}
   - component: {fileID: -7886658650871803620}
   m_Layer: 7
   m_Name: Zombie
@@ -80,7 +80,7 @@ MonoBehaviour:
   health: 20
   Coins: 1
   Experience: 1
---- !u!114 &8889535881088818083
+--- !u!114 &5134272077077701689
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,10 +89,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1895803396438371918}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 625f1c3ec5dea194b82d2fcdc8ec079a, type: 3}
+  m_Script: {fileID: 11500000, guid: 728cae387ea066d44b8a78d5aafac350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 0.5
+  kickBackDelay: 0.5
 --- !u!114 &5808805221164901897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,6 +129,19 @@ MonoBehaviour:
   blinkDuration: 0.5
   mesh: {fileID: 3143855085222973191}
   originalMaterials: []
+--- !u!114 &-3552734408457719522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895803396438371918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7375d70ae29d9ad4f9d5be81f7f03623, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: -7886658650871803620}
 --- !u!114 &1035234577090796136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,19 +322,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-3552734408457719522
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1895803396438371918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7375d70ae29d9ad4f9d5be81f7f03623, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: -7886658650871803620}
 --- !u!95 &-7886658650871803620
 Animator:
   serializedVersion: 5

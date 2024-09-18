@@ -15,7 +15,7 @@ public class SkeletonBrain : MonoBehaviour
     public int CoinsReward;
     public int ExpirienceReward;
 
-    private SkeletonMovement movement;
+    private MobMovement movement;
     private SoundManager soundManager;
 
     private float cooldown = 0f;
@@ -24,7 +24,7 @@ public class SkeletonBrain : MonoBehaviour
 
     private void Awake()
     {
-        movement = GetComponent<SkeletonMovement>();
+        movement = GetComponent<MobMovement>();
         soundManager = GetComponent<SoundManager>();
 
         player = FindObjectOfType<Movement>().transform;

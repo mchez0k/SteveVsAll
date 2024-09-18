@@ -143,17 +143,17 @@ GameObject:
   m_Component:
   - component: {fileID: 7274199365740308202}
   - component: {fileID: 6193837380185996074}
-  - component: {fileID: 1667773147500355375}
   - component: {fileID: 1460788509150180897}
   - component: {fileID: 7832350376674245493}
   - component: {fileID: 4968205898098753855}
+  - component: {fileID: 3560386700292785236}
+  - component: {fileID: 5035994928849899388}
   - component: {fileID: 4356236879704322189}
   - component: {fileID: 6970544593783000337}
   - component: {fileID: 8984067407988750773}
   - component: {fileID: 4152407807330311878}
   - component: {fileID: 7802777475829812264}
   - component: {fileID: 4590348635898268365}
-  - component: {fileID: 5035994928849899388}
   m_Layer: 7
   m_Name: Skeleton
   m_TagString: Skeleton
@@ -198,19 +198,6 @@ MonoBehaviour:
   bow: {fileID: 6858091222959524169}
   CoinsReward: 1
   ExpirienceReward: 1
---- !u!114 &1667773147500355375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6236627264545526226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45ba35651348caa49b6c3959d38f55a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  delay: 0.5
 --- !u!114 &1460788509150180897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,6 +253,32 @@ MonoBehaviour:
   blinkDuration: 0.5
   mesh: {fileID: 8978672641993110884}
   originalMaterials: []
+--- !u!114 &3560386700292785236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6236627264545526226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 728cae387ea066d44b8a78d5aafac350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kickBackDelay: 0.5
+--- !u!114 &5035994928849899388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6236627264545526226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7375d70ae29d9ad4f9d5be81f7f03623, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 4590348635898268365}
 --- !u!114 &4356236879704322189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -467,19 +480,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5035994928849899388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6236627264545526226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7375d70ae29d9ad4f9d5be81f7f03623, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 4590348635898268365}
 --- !u!1 &6326839536873691384
 GameObject:
   m_ObjectHideFlags: 0

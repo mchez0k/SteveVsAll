@@ -2,9 +2,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ZombieMovement : MonoBehaviour, IPhysicsObserver
+public class MobMovement : MonoBehaviour, IPhysicsObserver
 {
-    [SerializeField] private float delay = 0.5f;
+    [SerializeField] private float kickBackDelay = 0.5f;
 
     private NavMeshAgent navMeshAgent;
     private Rigidbody rb;
@@ -16,9 +16,8 @@ public class ZombieMovement : MonoBehaviour, IPhysicsObserver
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
-        animationsManager = GetComponent<AnimationsManager>();
-
         player = FindObjectOfType<Movement>().transform;
+        animationsManager = GetComponent<AnimationsManager>();
 
         if (player == null)
         {
@@ -30,6 +29,7 @@ public class ZombieMovement : MonoBehaviour, IPhysicsObserver
     {
         if (navMeshAgent != null && navMeshAgent.enabled)
         {
+            ReturnToMesh();
             navMeshAgent.SetDestination(player.position);
             animationsManager.OnMove(navMeshAgent.velocity.magnitude);
         }
@@ -39,6 +39,7 @@ public class ZombieMovement : MonoBehaviour, IPhysicsObserver
     {
         if (navMeshAgent != null && navMeshAgent.enabled)
         {
+            ReturnToMesh();
             navMeshAgent.ResetPath();
             animationsManager.OnMove(navMeshAgent.velocity.magnitude);
         }
@@ -54,7 +55,7 @@ public class ZombieMovement : MonoBehaviour, IPhysicsObserver
             (transform.position.z - attackerPosition.z)
         ).normalized * kickForce;
         rb.AddForce(kickDirection, ForceMode.Impulse);
-        StartCoroutine(RestoreNavMeshAgentAndRigidbody(delay));
+        StartCoroutine(RestoreNavMeshAgentAndRigidbody(kickBackDelay));
     }
 
     private IEnumerator RestoreNavMeshAgentAndRigidbody(float delay)
@@ -62,6 +63,18 @@ public class ZombieMovement : MonoBehaviour, IPhysicsObserver
         yield return new WaitForSeconds(delay);
 
         SwitchMode(true);
+    }
+
+    private void ReturnToMesh()
+    {
+        if (!navMeshAgent.isOnNavMesh)
+        {
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(navMeshAgent.transform.position, out hit, 5.0f, NavMesh.AllAreas))
+            {
+                navMeshAgent.Warp(hit.position);
+            }
+        }
     }
 
     private void SwitchMode(bool mode)
