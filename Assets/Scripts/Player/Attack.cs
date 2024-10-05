@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Attack : MonoBehaviour
 {
@@ -49,16 +47,16 @@ public class Attack : MonoBehaviour
         }
     }
 
-    private void OnAttack(InputAction.CallbackContext context)
-    {
-        if (currentWeapon != null && currentCooldown < 0)
-        {
-            animationsManager.OnAttack();
-            soundManager.OnAttack();
-            currentWeapon.Attack();
-            currentCooldown = currentWeapon.WeaponData.coolDown;
-        }
-    }
+    //private void OnAttack(InputAction.CallbackContext context)
+    //{
+    //    if (currentWeapon != null && currentCooldown < 0)
+    //    {
+    //        animationsManager.OnAttack();
+    //        soundManager.OnAttack();
+    //        currentWeapon.Attack();
+    //        currentCooldown = currentWeapon.WeaponData.coolDown;
+    //    }
+    //}
 
     public void SetWeapon()
     {

@@ -1,4 +1,3 @@
-using UnityEngine.InputSystem;
 using UnityEngine;
 using System.Collections;
 using YG;
@@ -7,9 +6,9 @@ public class Movement : MonoBehaviour, IPhysicsObserver
 {
     [SerializeField] private float speed = 3f;
     [SerializeField] private float rotationSensitivity = 3f;
-    [SerializeField] private float dashSpeed = 20f; // Скорость для рывка
-    [SerializeField] private float dashDuration = 0.2f; // Длительность рывка
-    [SerializeField] private float dashCooldown = 1f; // Время перезарядки
+    [SerializeField] private float dashSpeed = 20f;
+    [SerializeField] private float dashDuration = 0.2f;
+    [SerializeField] private float dashCooldown = 1f;
 
 
     private float lastDashTime = -10f;
@@ -33,8 +32,10 @@ public class Movement : MonoBehaviour, IPhysicsObserver
         rb = GetComponent<Rigidbody>();
         animationsManager = GetComponent<AnimationsManager>();
 
-        isMobile = YandexGame.EnvironmentData.isMobile || YandexGame.EnvironmentData.isTablet;
+        isMobile = Application.isMobilePlatform || YandexGame.EnvironmentData.isTablet;
         Debug.Log("Устройство: " + YandexGame.EnvironmentData.deviceType);
+        Debug.Log("Устройство: " + Application.isMobilePlatform);
+
         if (isMobile)
         {
             moveJoystick.gameObject.SetActive(true);
@@ -137,7 +138,7 @@ public class Movement : MonoBehaviour, IPhysicsObserver
         else
         {
             Plane playerPlane = new Plane(Vector3.up, transform.position);
-            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             float hitDist;
 
             if (playerPlane.Raycast(ray, out hitDist))

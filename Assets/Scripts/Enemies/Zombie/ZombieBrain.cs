@@ -33,7 +33,7 @@ public class ZombieBrain : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         cooldown -= Time.deltaTime;
         Move();

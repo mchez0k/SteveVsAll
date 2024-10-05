@@ -291,6 +291,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b84df12b8a2ce3146aac89f50ccf6bb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dropPrefab: {fileID: 1220836777339248616, guid: 542ce5cf0587f6444871779a347dfac0,
+    type: 3}
 --- !u!195 &6970544593783000337
 NavMeshAgent:
   m_ObjectHideFlags: 0

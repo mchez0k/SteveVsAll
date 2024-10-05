@@ -31,6 +31,7 @@ public class MobMovement : MonoBehaviour, IPhysicsObserver
         {
             ReturnToMesh();
             navMeshAgent.SetDestination(player.position);
+            transform.forward = target.position - transform.position;
             animationsManager.OnMove(navMeshAgent.velocity.magnitude);
         }
     }
@@ -67,14 +68,12 @@ public class MobMovement : MonoBehaviour, IPhysicsObserver
 
     private void ReturnToMesh()
     {
-        if (!navMeshAgent.isOnNavMesh)
-        {
+        if (navMeshAgent.isOnNavMesh) return;
             NavMeshHit hit;
             if (NavMesh.SamplePosition(navMeshAgent.transform.position, out hit, 5.0f, NavMesh.AllAreas))
             {
                 navMeshAgent.Warp(hit.position);
             }
-        }
     }
 
     private void SwitchMode(bool mode)
