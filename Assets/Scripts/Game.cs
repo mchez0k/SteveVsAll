@@ -8,6 +8,9 @@ public class Game : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
 
     [SerializeField] private GameObject steveModel;
+
+    //[SerializeField] private GameObject[] menus;
+
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject shopMenu;
     [SerializeField] private Transform itemGrid;
@@ -39,19 +42,19 @@ public class Game : MonoBehaviour
         coins.text = YandexGame.savesData.Coins.ToString();
     }
 
-    public void OpenShop()
+    public void OpenShop(GameObject shop)
     {
         audioSource.Play();
         steveModel.SetActive(false);
         mainMenu.SetActive(false);
-        shopMenu.SetActive(true);
+        shop.SetActive(true);
         YandexGame.FullscreenShow();
     }
 
-    public void CloseShop()
+    public void CloseShop(GameObject shop)
     {
         audioSource.Play();
-        shopMenu.SetActive(false);
+        shop.SetActive(false);
         mainMenu.SetActive(true);
         steveModel.SetActive(true);
         YandexGame.FullscreenShow();
